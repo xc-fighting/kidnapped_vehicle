@@ -1,9 +1,3 @@
-/**
- * particle_filter.cpp
- *
- * Created on: Dec 12, 2016
- * Author: Tiffany Huang
- */
 
 #include "particle_filter.h"
 
@@ -130,16 +124,17 @@ void ParticleFilter::dataAssociation(vector<LandmarkObs> predicted,
    *   probably find it useful to implement this method and use it as a helper 
    *   during the updateWeights phase.
    */
-   for (size_t i = 0; i < observations.size(); i++) {                                                                                          
-    double min_distance = std::numeric_limits<double>::max();
+   for (int i = 0; i < observations.size(); i++) {                                                                                          
+    
     observations[i].id = -1;
-    for (size_t j = 0; j < predicted.size(); j++)
-    {                                                                                        
-      double distance;                                                                       
+
+    double min = std::numeric_limits<double>::max();
+    for (int j = 0; j < predicted.size(); j++) {                                                                                        
+      double distance;
+      //call the helper function to get the distance                                                                       
       distance = dist(observations[i].x, observations[i].y, predicted[j].x, predicted[j].y);
-      if (distance < min_distance)
-      {                                                                                      
-        min_distance = distance;                                                             
+      if (distance < min) {                                                                                      
+        min = distance;                                                             
         observations[i].id = predicted[j].id;
       }
     }
